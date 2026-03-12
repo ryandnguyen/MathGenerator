@@ -1,0 +1,270 @@
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #f5a623;
+  --bg-color: #f8f9fa;
+  --text-color: #333;
+  --white: #ffffff;
+  --border-radius: 8px;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.header {
+  background-color: var(--white);
+  padding: 20px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.logo h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+.header p {
+  margin: 5px 0 0;
+  color: #666;
+}
+
+/* Controls */
+.controls {
+  padding: 30px 0;
+}
+
+.control-group {
+  margin-bottom: 25px;
+}
+
+.control-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.button-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button-grid button {
+  padding: 8px 16px;
+  border: 2px solid var(--primary-color);
+  background: var(--white);
+  color: var(--primary-color);
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.button-grid button:hover {
+  background: #eef5ff;
+}
+
+.button-grid button.active {
+  background: var(--primary-color);
+  color: var(--white);
+}
+
+input[type="range"] {
+  width: 100%;
+  max-width: 400px;
+  cursor: pointer;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-primary, .btn-secondary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.btn-primary:active, .btn-secondary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-secondary {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+
+/* Worksheet Display */
+.worksheet-preview {
+  background: var(--white);
+  padding: 40px;
+  margin-bottom: 50px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: var(--border-radius);
+}
+
+.worksheet {
+  color: #000;
+}
+
+.worksheet-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  border-bottom: 2px solid #333;
+  padding-bottom: 15px;
+}
+
+.student-info div {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.title-info {
+  text-align: right;
+}
+
+.title-info h2 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.equation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 40px;
+}
+
+.equation-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+  padding: 5px;
+}
+
+.answer-box {
+  display: inline-block;
+  width: 80px;
+  height: 30px;
+  border-bottom: 2px solid #000;
+}
+
+.worksheet-footer {
+  margin-top: 25px;
+  text-align: center;
+  font-style: italic;
+  color: #888;
+}
+
+/* Answer Key */
+.answer-key {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px dashed #ccc;
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.answer-item {
+  font-size: 1rem;
+  padding: 3px;
+}
+
+.answer-item .index {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.answer-item .answer {
+  color: #d0021b;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+/* Print Styles */
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background-color: white;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .worksheet-preview {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .worksheet {
+    page-break-after: always;
+  }
+
+  .page-break-before {
+    page-break-before: always;
+  }
+}
+
+@media (max-width: 600px) {
+  .equation-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .worksheet-header {
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  .title-info {
+    text-align: left;
+    margin-top: 20px;
+  }
+}
