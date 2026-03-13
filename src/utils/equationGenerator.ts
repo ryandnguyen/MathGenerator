@@ -283,6 +283,10 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
         a = 2;
     }
 
+    if (typeof a === 'number') {
+      a = parseFloat(a.toFixed(3));
+    }
+
     equations.push({
       id: `${grade}-${i}-${Date.now()}`,
       question: q,
