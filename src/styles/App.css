@@ -264,6 +264,7 @@ input[type="range"] {
   margin: 0;
   font-size: 2rem;
   font-weight: 800;
+  line-height: 1.2;
 }
 
 .answer-box {
@@ -272,6 +273,7 @@ input[type="range"] {
   height: 30px;
   border-bottom: 2px solid #334155;
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 /* Answer Key */
@@ -327,4 +329,28 @@ input[type="range"] {
   .action-buttons { flex-direction: column; }
   .equation-grid { grid-template-columns: 1fr; }
   .answer-grid { grid-template-columns: repeat(2, 1fr); }
+  
+  .worksheet-preview {
+    padding: 20px;
+  }
+
+  .worksheet-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .title-info {
+    text-align: left;
+    width: 100%;
+  }
+
+  .title-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .student-info div {
+    font-size: 1rem;
+  }
 }
