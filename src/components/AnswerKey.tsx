@@ -6,17 +6,15 @@ interface AnswerKeyProps {
   grade: Grade;
 }
 
-const AnswerKey: React.FC<AnswerKeyProps> = ({ equations, grade }) => {
+const AnswerKey: React.FC<AnswerKeyProps> = ({ equations }) => {
   return (
     <div className="answer-key printable-area page-break-before">
-      <h2>Answer Key</h2>
-      <p>{grade} Math Practice</p>
+      <h3>Answer Key</h3>
       
       <div className="answer-grid">
         {equations.map((eq, index) => (
           <div key={eq.id} className="answer-item">
             <span className="index">{index + 1}.</span>
-            <span className="question">{eq.question}</span>
             <span className="answer">{eq.answer}</span>
           </div>
         ))}

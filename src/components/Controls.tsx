@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Grade, Operation } from '../utils/equationGenerator';
-import { RefreshCw, Printer } from 'lucide-react';
+import { RefreshCw, Printer, FileDown } from 'lucide-react';
 
 interface ControlsProps {
   grade: Grade;
@@ -9,6 +9,8 @@ interface ControlsProps {
   setOperation: (op: Operation) => void;
   count: number;
   setCount: (count: number) => void;
+  useDecimals: boolean;
+  setUseDecimals: (use: boolean) => void;
   onGenerate: () => void;
   onPrint: () => void;
 }
@@ -20,11 +22,13 @@ const Controls: React.FC<ControlsProps> = ({
   setOperation,
   count,
   setCount,
+  useDecimals,
+  setUseDecimals,
   onGenerate,
   onPrint,
 }) => {
-  const grades: Grade[] = ['Pre-K', 'K', '1st', '2nd', '3rd', '4th', '5th'];
-  const operations: Operation[] = ['Addition', 'Subtraction', 'Multiplication', 'Division'];
+  const grades: Grade[] = ['Pre-K', 'K', '1st', '2nd', '3rd', '4th', '5th', '6th'];
+  const operations: Operation[] = ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Exponents'];
 
   return (
     <section className="no-print controls">
@@ -59,16 +63,29 @@ const Controls: React.FC<ControlsProps> = ({
           </div>
         </div>
 
-        <div className="control-group">
-          <label>Questions: {count}</label>
-          <input
-            type="range"
-            min="5"
-            max="40"
-            step="5"
-            value={count}
-            onChange={(e) => setCount(parseInt(e.target.value))}
-          />
+        <div className="control-row">
+          <div className="control-group">
+            <label>Questions: {count}</label>
+            <input
+              type="range"
+              min="5"
+              max="40"
+              step="5"
+              value={count}
+              onChange={(e) => setCount(parseInt(e.target.value))}
+            />
+          </div>
+
+          <div className="control-group checkbox-group">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={useDecimals}
+                onChange={(e) => setUseDecimals(e.target.checked)}
+              />
+              <span>Use Decimals</span>
+            </label>
+          </div>
         </div>
 
         <div className="action-buttons">
@@ -77,6 +94,9 @@ const Controls: React.FC<ControlsProps> = ({
           </button>
           <button className="btn-secondary" onClick={onPrint}>
             <Printer size={20} /> Print Worksheet
+          </button>
+          <button className="btn-download" onClick={onPrint}>
+            <FileDown size={20} /> Download PDF
           </button>
         </div>
       </div>

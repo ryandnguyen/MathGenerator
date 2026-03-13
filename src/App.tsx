@@ -1,25 +1,26 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import Header from './components/Header';
 import Controls from './components/Controls';
 import Worksheet from './components/Worksheet';
 import AnswerKey from './components/AnswerKey';
 import { generateEquations } from './utils/equationGenerator';
-import type { Grade, Operation, Equation } from './utils/equationGenerator';
+import type { Grade, Operation } from './utils/equationGenerator';
 import './styles/App.css';
 
 function App() {
   const [grade, setGrade] = useState<Grade>('1st');
   const [operation, setOperation] = useState<Operation>('Addition');
   const [count, setCount] = useState<number>(20);
-  const [equations, setEquations] = useState<Equation[]>([]);
+  const [useDecimals, setUseDecimals] = useState<boolean>(false);
+  const [seed, setSeed] = useState<number>(0);
 
-  const handleGenerate = () => {
-    const newEquations = generateEquations(grade, operation, count);
-    setEquations(newEquations);
-  };
+  const equations = useMemo(() => {
+    return generateEquations(grade, operation, count, useDecimals);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [grade, operation, count, useDecimals, seed]);
 
-  useEffect(() => {
-    handleGenerate();
+  const handleGenerate = useCallback(() => {
+    setSeed(s => s + 1);
   }, []);
 
   const handlePrint = () => {
@@ -37,6 +38,8 @@ function App() {
           setOperation={setOperation}
           count={count}
           setCount={setCount}
+          useDecimals={useDecimals}
+          setUseDecimals={setUseDecimals}
           onGenerate={handleGenerate}
           onPrint={handlePrint}
         />

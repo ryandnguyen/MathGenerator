@@ -25,8 +25,8 @@ const Worksheet: React.FC<WorksheetProps> = ({ equations, grade, operation }) =>
       </div>
 
       <div className="equation-grid">
-        {equations.map((eq) => (
-          <EquationCard key={eq.id} equation={eq} />
+        {equations.map((eq, index) => (
+          <EquationCard key={eq.id} equation={eq} index={index + 1} />
         ))}
       </div>
 

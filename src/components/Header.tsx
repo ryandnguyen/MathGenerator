@@ -6,10 +6,10 @@ const Header: React.FC = () => {
     <header className="no-print header">
       <div className="container">
         <div className="logo">
-          <Calculator size={32} color="#4A90E2" />
+          <Calculator size={32} color="#4A90E2" strokeWidth={2.5} />
           <h1>MathGen Kids</h1>
         </div>
-        <p>Fun & Easy Math Worksheets (PreK - 5th Grade)</p>
+        <p>Fun & Easy Math Worksheets (PreK - 6th Grade)</p>
       </div>
     </header>
   );
