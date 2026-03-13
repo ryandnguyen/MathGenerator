@@ -20,7 +20,7 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
 
     const getNum = (min: number, max: number) => {
       if (useDecimals) {
-        return parseFloat((Math.random() * (max - min) + min).toFixed(2));
+        return parseFloat((Math.random() * (max - min) + min).toFixed(3));
       }
       return getRandomInt(min, max);
     };
@@ -32,12 +32,12 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
           const v1 = getNum(1, max);
           const v2 = getNum(0, v1);
           q = `${v1} - ${v2} =`;
-          a = parseFloat((v1 - v2).toFixed(2));
+          a = parseFloat((v1 - v2).toFixed(3));
         } else if (operation === 'Multiplication') {
           const v1 = getNum(0, 2);
           const v2 = getNum(0, 5);
           q = `${v1} × ${v2} =`;
-          a = parseFloat((v1 * v2).toFixed(2));
+          a = parseFloat((v1 * v2).toFixed(3));
         } else if (operation === 'Division') {
           const v2 = getNum(1, 2);
           const res = getNum(0, 3);
@@ -53,7 +53,7 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
           const v1 = getNum(0, max);
           const v2 = getNum(0, max - v1);
           q = `${v1} + ${v2} =`;
-          a = parseFloat((v1 + v2).toFixed(2));
+          a = parseFloat((v1 + v2).toFixed(3));
         }
         break;
       }
@@ -63,12 +63,12 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
           const v1 = getNum(1, max);
           const v2 = getNum(0, v1);
           q = `${v1} - ${v2} =`;
-          a = parseFloat((v1 - v2).toFixed(2));
+          a = parseFloat((v1 - v2).toFixed(3));
         } else if (operation === 'Multiplication') {
           const v1 = getNum(0, 5);
           const v2 = getNum(0, 2);
           q = `${v1} × ${v2} =`;
-          a = parseFloat((v1 * v2).toFixed(2));
+          a = parseFloat((v1 * v2).toFixed(3));
         } else if (operation === 'Division') {
           const v2 = getNum(1, 5);
           const res = getNum(0, 2);
@@ -84,7 +84,7 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
           const v1 = getNum(0, max);
           const v2 = getNum(0, max - v1);
           q = `${v1} + ${v2} =`;
-          a = parseFloat((v1 + v2).toFixed(2));
+          a = parseFloat((v1 + v2).toFixed(3));
         }
         break;
       }
@@ -94,12 +94,12 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
           const v1 = getNum(1, max);
           const v2 = getNum(0, v1);
           q = `${v1} - ${v2} =`;
-          a = parseFloat((v1 - v2).toFixed(2));
+          a = parseFloat((v1 - v2).toFixed(3));
         } else if (operation === 'Multiplication') {
           const v1 = getNum(0, 10);
           const v2 = getNum(0, 2);
           q = `${v1} × ${v2} =`;
-          a = parseFloat((v1 * v2).toFixed(2));
+          a = parseFloat((v1 * v2).toFixed(3));
         } else if (operation === 'Division') {
           const v2 = getNum(1, 5);
           const res = getNum(0, 5);
@@ -116,7 +116,7 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
           const v1 = getNum(0, max);
           const v2 = getNum(0, max - v1);
           q = `${v1} + ${v2} =`;
-          a = parseFloat((v1 + v2).toFixed(2));
+          a = parseFloat((v1 + v2).toFixed(3));
         }
         break;
       }
@@ -126,12 +126,12 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
           const v1 = getNum(1, max);
           const v2 = getNum(0, v1);
           q = `${v1} - ${v2} =`;
-          a = parseFloat((v1 - v2).toFixed(2));
+          a = parseFloat((v1 - v2).toFixed(3));
         } else if (operation === 'Multiplication') {
           const v1 = getNum(0, 10);
           const v2 = getNum(0, 5);
           q = `${v1} × ${v2} =`;
-          a = parseFloat((v1 * v2).toFixed(2));
+          a = parseFloat((v1 * v2).toFixed(3));
         } else if (operation === 'Division') {
           const v2 = getNum(1, 10);
           const res = getNum(0, 5);
@@ -147,7 +147,7 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
           const v1 = getNum(0, max);
           const v2 = getNum(0, max - v1);
           q = `${v1} + ${v2} =`;
-          a = parseFloat((v1 + v2).toFixed(2));
+          a = parseFloat((v1 + v2).toFixed(3));
         }
         break;
       }
@@ -156,11 +156,11 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
           const v1 = getNum(0, 10);
           const v2 = getNum(0, 10);
           q = `${v1} × ${v2} =`;
-          a = parseFloat((v1 * v2).toFixed(2));
+          a = parseFloat((v1 * v2).toFixed(3));
         } else if (operation === 'Division') {
           const v2 = getNum(1, 10);
           const res = getNum(0, 10);
-          const v1 = parseFloat((v2 * res).toFixed(2));
+          const v1 = parseFloat((v2 * res).toFixed(3));
           q = `${v1} ÷ ${v2} =`;
           a = res;
         } else if (operation === 'Exponents') {
@@ -173,12 +173,12 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
             const v2 = getNum(0, 1000);
             if (operation === 'Addition') {
                 q = `${v1} + ${v2} =`;
-                a = parseFloat((v1 + v2).toFixed(2));
+                a = parseFloat((v1 + v2).toFixed(3));
             } else {
                 const maxVal = Math.max(v1, v2);
                 const minVal = Math.min(v1, v2);
                 q = `${maxVal} - ${minVal} =`;
-                a = parseFloat((maxVal - minVal).toFixed(2));
+                a = parseFloat((maxVal - minVal).toFixed(3));
             }
         }
         break;
@@ -188,13 +188,13 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
             const v1 = getNum(10, 100);
             const v2 = getNum(2, 9);
             q = `${v1} × ${v2} =`;
-            a = parseFloat((v1 * v2).toFixed(2));
+            a = parseFloat((v1 * v2).toFixed(3));
         } else if (operation === 'Division') {
             const v1 = getNum(100, 1000);
             const v2 = getNum(2, 9);
             q = `${v1} ÷ ${v2} =`;
             if (useDecimals) {
-                a = parseFloat((v1 / v2).toFixed(2));
+                a = parseFloat((v1 / v2).toFixed(3));
             } else {
                 a = Math.floor(v1 / v2) + (v1 % v2 !== 0 ? ` R ${v1 % v2}` : '');
             }
@@ -207,12 +207,12 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
             const v2 = getNum(1000, 10000);
             if (operation === 'Addition') {
                 q = `${v1} + ${v2} =`;
-                a = parseFloat((v1 + v2).toFixed(2));
+                a = parseFloat((v1 + v2).toFixed(3));
             } else {
                 const maxVal = Math.max(v1, v2);
                 const minVal = Math.min(v1, v2);
                 q = `${maxVal} - ${minVal} =`;
-                a = parseFloat((maxVal - minVal).toFixed(2));
+                a = parseFloat((maxVal - minVal).toFixed(3));
             }
         }
         break;
@@ -243,7 +243,7 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
             else a = subRes * v3;
           }
 
-          a = parseFloat(a.toFixed(2));
+          a = parseFloat(a.toFixed(3));
           break;
       }
       case '6th': {
@@ -261,19 +261,19 @@ export const generateEquations = (grade: Grade, operation: Operation, count: num
                 const v1 = getNum(1, 20);
                 const v2 = getNum(v1 + 1, v1 + 20);
                 q = `x + ${v1} = ${v2}, x =`;
-                a = parseFloat((v2 - v1).toFixed(2));
+                a = parseFloat((v2 - v1).toFixed(3));
             } else if (type === 1) {
                 // Ratios/Percentages: What is p% of v1?
                 const p = getRandomInt(1, 100);
                 const v1 = getNum(10, 500);
                 q = `${p}% of ${v1} =`;
-                a = parseFloat(((p / 100) * v1).toFixed(2));
+                a = parseFloat(((p / 100) * v1).toFixed(3));
             } else {
                 // Exponents/Order of operations: v1^2 + v2
                 const v1 = getRandomInt(2, 12);
                 const v2 = getNum(1, 50);
                 q = `${v1}² + ${v2} =`;
-                a = parseFloat((v1 * v1 + v2).toFixed(2));
+                a = parseFloat((v1 * v1 + v2).toFixed(3));
             }
           }
           break;
