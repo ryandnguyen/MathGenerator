@@ -4,20 +4,20 @@ import Controls from './components/Controls';
 import Worksheet from './components/Worksheet';
 import AnswerKey from './components/AnswerKey';
 import { generateEquations } from './utils/equationGenerator';
-import type { Grade, Operation } from './utils/equationGenerator';
+import type { Grade, Operation, Category } from './utils/equationGenerator';
 import './styles/App.css';
 
 function App() {
   const [grade, setGrade] = useState<Grade>('1st');
+  const [category, setCategory] = useState<Category>('Arithmetic');
   const [operation, setOperation] = useState<Operation>('Addition');
   const [count, setCount] = useState<number>(20);
   const [useDecimals, setUseDecimals] = useState<boolean>(false);
   const [seed, setSeed] = useState<number>(0);
 
   const equations = useMemo(() => {
-    return generateEquations(grade, operation, count, useDecimals);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [grade, operation, count, useDecimals, seed]);
+    return generateEquations(grade, category, operation, count, useDecimals);
+  }, [grade, category, operation, count, useDecimals, seed]);
 
   const handleGenerate = useCallback(() => {
     setSeed(s => s + 1);
@@ -34,6 +34,8 @@ function App() {
         <Controls
           grade={grade}
           setGrade={setGrade}
+          category={category}
+          setCategory={setCategory}
           operation={operation}
           setOperation={setOperation}
           count={count}
@@ -52,7 +54,6 @@ function App() {
             />
             <AnswerKey 
               equations={equations} 
-              grade={grade} 
             />
           </div>
         </section>

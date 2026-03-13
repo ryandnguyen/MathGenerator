@@ -10,7 +10,20 @@ const EquationCard: React.FC<EquationCardProps> = ({ equation, index }) => {
   return (
     <div className="equation-card">
       <span className="index">{index}.</span>
-      <span className="question">{equation.question}</span>
+      <div className="question">
+        {equation.question.map((part, i) => {
+          if (part.type === 'fraction') {
+            const val = part.value as { numerator: string; denominator: string };
+            return (
+              <span key={i} className="fraction">
+                <span className="numerator">{val.numerator}</span>
+                <span className="denominator">{val.denominator}</span>
+              </span>
+            );
+          }
+          return <span key={i}>{part.value as string}</span>;
+        })}
+      </div>
       <span className="answer-box"></span>
     </div>
   );

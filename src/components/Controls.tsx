@@ -1,10 +1,12 @@
 import React from 'react';
-import type { Grade, Operation } from '../utils/equationGenerator';
+import type { Category, Grade, Operation } from '../utils/equationGenerator';
 import { RefreshCw, Printer, FileDown } from 'lucide-react';
 
 interface ControlsProps {
   grade: Grade;
   setGrade: (grade: Grade) => void;
+  category: Category;
+  setCategory: (cat: Category) => void;
   operation: Operation;
   setOperation: (op: Operation) => void;
   count: number;
@@ -15,9 +17,32 @@ interface ControlsProps {
   onPrint: () => void;
 }
 
+const CATEGORIES: { label: Category; operations: string[] }[] = [
+  { 
+    label: 'Arithmetic', 
+    operations: ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Exponents'] 
+  },
+  { 
+    label: 'Fractions', 
+    operations: ['Add Vertical', 'Sub Vertical', 'Multiply', 'Divide', 'Simplify', 'Compare'] 
+  },
+  { 
+    label: 'Measurement', 
+    operations: ['Money: Count', 'Money: Change', 'Time: Telling', 'Time: Elapsed', 'Units: Length', 'Units: Weight'] 
+  },
+  { 
+    label: 'Geometry', 
+    operations: ['Perimeter: Rect', 'Area: Rect', 'Perimeter: Square', 'Area: Square', 'Volume: Rect Prism', 'Shapes: Faces'] 
+  }
+];
+
+const GRADES: Grade[] = ['Pre-K', 'K', '1st', '2nd', '3rd', '4th', '5th', '6th'];
+
 const Controls: React.FC<ControlsProps> = ({
   grade,
   setGrade,
+  category,
+  setCategory,
   operation,
   setOperation,
   count,
@@ -27,8 +52,13 @@ const Controls: React.FC<ControlsProps> = ({
   onGenerate,
   onPrint,
 }) => {
-  const grades: Grade[] = ['Pre-K', 'K', '1st', '2nd', '3rd', '4th', '5th', '6th'];
-  const operations: Operation[] = ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Exponents'];
+  const currentCategoryObj = CATEGORIES.find(c => c.label === category) || CATEGORIES[0];
+
+  const handleCategoryChange = (cat: Category) => {
+    setCategory(cat);
+    const firstOp = CATEGORIES.find(c => c.label === cat)?.operations[0] || '';
+    setOperation(firstOp as Operation);
+  };
 
   return (
     <section className="no-print controls">
@@ -36,7 +66,7 @@ const Controls: React.FC<ControlsProps> = ({
         <div className="control-group">
           <label>Grade Level</label>
           <div className="button-grid">
-            {grades.map((g) => (
+            {GRADES.map((g) => (
               <button
                 key={g}
                 className={grade === g ? 'active' : ''}
@@ -49,13 +79,28 @@ const Controls: React.FC<ControlsProps> = ({
         </div>
 
         <div className="control-group">
-          <label>Operation</label>
+          <label>Math Category</label>
           <div className="button-grid">
-            {operations.map((op) => (
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.label}
+                className={category === cat.label ? 'active' : ''}
+                onClick={() => handleCategoryChange(cat.label)}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="control-group">
+          <label>Topic: {category}</label>
+          <div className="button-grid">
+            {currentCategoryObj.operations.map((op) => (
               <button
                 key={op}
                 className={operation === op ? 'active' : ''}
-                onClick={() => setOperation(op)}
+                onClick={() => setOperation(op as Operation)}
               >
                 {op}
               </button>
@@ -82,8 +127,9 @@ const Controls: React.FC<ControlsProps> = ({
                 type="checkbox"
                 checked={useDecimals}
                 onChange={(e) => setUseDecimals(e.target.checked)}
+                disabled={category !== 'Arithmetic'}
               />
-              <span>Use Decimals</span>
+              <span>Use Decimals (Arithmetic Only)</span>
             </label>
           </div>
         </div>
