@@ -17,22 +17,26 @@ interface ControlsProps {
   onPrint: () => void;
 }
 
-const CATEGORIES: { label: Category; operations: string[] }[] = [
+const CATEGORIES: { label: Category; operations: string[]; minGrade: Grade }[] = [
   { 
     label: 'Arithmetic', 
-    operations: ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Exponents'] 
+    operations: ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Exponents'],
+    minGrade: 'Pre-K'
   },
   { 
     label: 'Fractions', 
-    operations: ['Add Vertical', 'Sub Vertical', 'Multiply', 'Divide', 'Simplify', 'Compare'] 
+    operations: ['Add Vertical', 'Sub Vertical', 'Multiply', 'Divide', 'Simplify', 'Compare'],
+    minGrade: '3rd'
   },
   { 
     label: 'Measurement', 
-    operations: ['Money: Count', 'Money: Change', 'Time: Telling', 'Time: Elapsed', 'Units: Length', 'Units: Weight'] 
+    operations: ['Money: Count', 'Money: Change', 'Time: Telling', 'Time: Elapsed', 'Units: Length', 'Units: Weight'],
+    minGrade: 'K'
   },
   { 
     label: 'Geometry', 
-    operations: ['Perimeter: Rect', 'Area: Rect', 'Perimeter: Square', 'Area: Square', 'Volume: Rect Prism', 'Shapes: Faces'] 
+    operations: ['Perimeter: Rect', 'Area: Rect', 'Perimeter: Square', 'Area: Square', 'Volume: Rect Prism', 'Shapes: Faces'],
+    minGrade: 'K'
   }
 ];
 
@@ -52,12 +56,32 @@ const Controls: React.FC<ControlsProps> = ({
   onGenerate,
   onPrint,
 }) => {
-  const currentCategoryObj = CATEGORIES.find(c => c.label === category) || CATEGORIES[0];
+  const gradeIndex = GRADES.indexOf(grade);
+  
+  const filteredCategories = CATEGORIES.filter(cat => {
+    const minGradeIndex = GRADES.indexOf(cat.minGrade);
+    return gradeIndex >= minGradeIndex;
+  });
+
+  const currentCategoryObj = filteredCategories.find(c => c.label === category) || filteredCategories[0];
+
+  const handleGradeChange = (newGrade: Grade) => {
+    setGrade(newGrade);
+    const newGradeIndex = GRADES.indexOf(newGrade);
+    const availableForNewGrade = CATEGORIES.filter(cat => GRADES.indexOf(cat.minGrade) <= newGradeIndex);
+    
+    // If current category is no longer available for the new grade, reset it
+    if (!availableForNewGrade.find(c => c.label === category)) {
+      handleCategoryChange(availableForNewGrade[0].label);
+    }
+  };
 
   const handleCategoryChange = (cat: Category) => {
     setCategory(cat);
-    const firstOp = CATEGORIES.find(c => c.label === cat)?.operations[0] || '';
-    setOperation(firstOp as Operation);
+    const catObj = CATEGORIES.find(c => c.label === cat);
+    if (catObj) {
+      setOperation(catObj.operations[0] as Operation);
+    }
   };
 
   return (
@@ -70,7 +94,7 @@ const Controls: React.FC<ControlsProps> = ({
               <button
                 key={g}
                 className={grade === g ? 'active' : ''}
-                onClick={() => setGrade(g)}
+                onClick={() => handleGradeChange(g)}
               >
                 {g}
               </button>
@@ -81,7 +105,7 @@ const Controls: React.FC<ControlsProps> = ({
         <div className="control-group">
           <label>Math Category</label>
           <div className="button-grid">
-            {CATEGORIES.map((cat) => (
+            {filteredCategories.map((cat) => (
               <button
                 key={cat.label}
                 className={category === cat.label ? 'active' : ''}
