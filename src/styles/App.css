@@ -359,6 +359,17 @@ input[type="range"] {
     flex-direction: column;
   }
   
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .btn-primary, .btn-secondary, .btn-download {
+    width: 100%;
+    padding: 12px 20px;
+  }
+  
   .equation-grid {
     grid-template-columns: 1fr;
     gap: 16px;
