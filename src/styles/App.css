@@ -305,6 +305,19 @@ input[type="range"] {
 @media print {
   .no-print { display: none !important; }
   .worksheet-preview { box-shadow: none; padding: 0; }
+  
+  .equation-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 20px 40px !important;
+  }
+
+  .equation-card {
+    background: transparent !important;
+    border: 1px solid #eee !important;
+    break-inside: avoid;
+  }
+
   .worksheet { page-break-after: always; }
   .page-break-before { page-break-before: always; }
 }
