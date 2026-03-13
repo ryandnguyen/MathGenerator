@@ -3,12 +3,14 @@ import { generateArithmetic, type ArithmeticOperation } from './generators/arith
 import { generateFractions, type FractionsOperation } from './generators/fractions';
 import { generateMeasurement, type MeasurementOperation } from './generators/measurement';
 import { generateGeometry, type GeometryOperation } from './generators/geometry';
+import { generateLearning, type LearningOperation } from './generators/learning';
 
 export type { Grade, Equation, EquationPart };
 
-export type Category = 'Arithmetic' | 'Fractions' | 'Measurement' | 'Geometry' | 'Algebra';
+export type Category = 'Learning' | 'Arithmetic' | 'Fractions' | 'Measurement' | 'Geometry' | 'Algebra';
 
 export type Operation = 
+  | LearningOperation
   | ArithmeticOperation 
   | FractionsOperation 
   | MeasurementOperation 
@@ -25,11 +27,14 @@ export const generateEquations = (
 
   for (let i = 0; i < count; i++) {
     let rawResult: { 
-      question: string | (string | { numerator: string; denominator: string })[]; 
+      question: string | any[]; 
       answer: string | number 
     };
 
     switch (category) {
+      case 'Learning':
+        rawResult = generateLearning(grade, operation as LearningOperation);
+        break;
       case 'Arithmetic':
         rawResult = generateArithmetic(grade, operation as ArithmeticOperation, useDecimals);
         break;
@@ -47,9 +52,11 @@ export const generateEquations = (
     }
 
     const questionParts: EquationPart[] = Array.isArray(rawResult.question)
-      ? rawResult.question.map(p => typeof p === 'string' 
-          ? { type: 'text', value: p } 
-          : { type: 'fraction', value: p })
+      ? rawResult.question.map(p => {
+          if (typeof p === 'string') return { type: 'text', value: p };
+          if (p.type) return p;
+          return { type: 'text', value: JSON.stringify(p) }; // Fallback
+        })
       : [{ type: 'text', value: rawResult.question as string }];
 
     equations.push({

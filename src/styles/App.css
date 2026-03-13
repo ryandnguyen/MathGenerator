@@ -177,6 +177,29 @@ input[type="range"] {
   gap: 24px 60px;
 }
 
+.emoji-icon {
+  font-size: 2rem;
+  margin: 0 4px;
+}
+
+.icon-group, .pattern-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px dashed #cbd5e1;
+  margin: 8px 0;
+}
+
+.pattern-placeholder {
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-left: 8px;
+}
+
 .equation-card {
   display: flex;
   align-items: center;
@@ -185,13 +208,15 @@ input[type="range"] {
   padding: 16px;
   background: #f8fafc;
   border-radius: 8px;
+  min-height: 80px;
 }
 
 .question {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   flex-wrap: wrap;
+  flex: 1;
 }
 
 .fraction {

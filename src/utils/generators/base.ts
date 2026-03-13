@@ -1,8 +1,8 @@
 export type Grade = 'Pre-K' | 'K' | '1st' | '2nd' | '3rd' | '4th' | '5th' | '6th';
 
 export interface EquationPart {
-  type: 'text' | 'fraction';
-  value: string | { numerator: string; denominator: string };
+  type: 'text' | 'fraction' | 'icons' | 'pattern';
+  value: string | { numerator: string; denominator: string } | { icon: string; count: number } | string[];
 }
 
 export interface Equation {

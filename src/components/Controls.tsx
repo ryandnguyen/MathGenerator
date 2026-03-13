@@ -17,11 +17,22 @@ interface ControlsProps {
   onPrint: () => void;
 }
 
-const CATEGORIES: { label: Category; operations: string[]; minGrade: Grade }[] = [
+const CATEGORIES: { label: Category; operations: string[]; minGrade: Grade; maxGrade?: Grade }[] = [
+  {
+    label: 'Learning',
+    operations: ['Counting', 'Patterns', 'Comparison'],
+    minGrade: 'Pre-K',
+    maxGrade: '1st'
+  },
   { 
     label: 'Arithmetic', 
     operations: ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Exponents'],
-    minGrade: 'Pre-K'
+    minGrade: 'K'
+  },
+  { 
+    label: 'Measurement', 
+    operations: ['Money: Count', 'Money: Change', 'Time: Telling', 'Time: Elapsed', 'Units: Length', 'Units: Weight'],
+    minGrade: '1st'
   },
   { 
     label: 'Fractions', 
@@ -29,14 +40,9 @@ const CATEGORIES: { label: Category; operations: string[]; minGrade: Grade }[] =
     minGrade: '3rd'
   },
   { 
-    label: 'Measurement', 
-    operations: ['Money: Count', 'Money: Change', 'Time: Telling', 'Time: Elapsed', 'Units: Length', 'Units: Weight'],
-    minGrade: 'K'
-  },
-  { 
     label: 'Geometry', 
     operations: ['Perimeter: Rect', 'Area: Rect', 'Perimeter: Square', 'Area: Square', 'Volume: Rect Prism', 'Shapes: Faces'],
-    minGrade: 'K'
+    minGrade: '4th'
   }
 ];
 
@@ -60,7 +66,8 @@ const Controls: React.FC<ControlsProps> = ({
   
   const filteredCategories = CATEGORIES.filter(cat => {
     const minGradeIndex = GRADES.indexOf(cat.minGrade);
-    return gradeIndex >= minGradeIndex;
+    const maxGradeIndex = cat.maxGrade ? GRADES.indexOf(cat.maxGrade) : 99;
+    return gradeIndex >= minGradeIndex && gradeIndex <= maxGradeIndex;
   });
 
   const currentCategoryObj = filteredCategories.find(c => c.label === category) || filteredCategories[0];
@@ -68,7 +75,11 @@ const Controls: React.FC<ControlsProps> = ({
   const handleGradeChange = (newGrade: Grade) => {
     setGrade(newGrade);
     const newGradeIndex = GRADES.indexOf(newGrade);
-    const availableForNewGrade = CATEGORIES.filter(cat => GRADES.indexOf(cat.minGrade) <= newGradeIndex);
+    const availableForNewGrade = CATEGORIES.filter(cat => {
+      const minIdx = GRADES.indexOf(cat.minGrade);
+      const maxIdx = cat.maxGrade ? GRADES.indexOf(cat.maxGrade) : 99;
+      return newGradeIndex >= minIdx && newGradeIndex <= maxIdx;
+    });
     
     // If current category is no longer available for the new grade, reset it
     if (!availableForNewGrade.find(c => c.label === category)) {
