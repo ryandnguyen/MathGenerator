@@ -54,7 +54,11 @@ export const generateEquations = (
     const questionParts: EquationPart[] = Array.isArray(rawResult.question)
       ? rawResult.question.map(p => {
           if (typeof p === 'string') return { type: 'text', value: p };
-          if (p.type) return p;
+          if (p.type) return p as EquationPart;
+          // If it's a fraction object from generateFractions
+          if (typeof p === 'object' && 'numerator' in p && 'denominator' in p) {
+            return { type: 'fraction', value: p as { numerator: string; denominator: string } };
+          }
           return { type: 'text', value: JSON.stringify(p) }; // Fallback
         })
       : [{ type: 'text', value: rawResult.question as string }];
