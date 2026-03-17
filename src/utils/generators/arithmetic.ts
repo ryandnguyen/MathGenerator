@@ -242,7 +242,28 @@ export const generateArithmetic = (
       break;
     }
     case '5th': {
-      if (operation === 'Exponents') {
+      if (operation === 'Multiplication') {
+        const type = getRandomInt(0, 2);
+        if (type === 0) {
+          // 0.5 * 0.4
+          const v1 = getRandomInt(1, 9) / 10;
+          const v2 = getRandomInt(1, 9) / 10;
+          q = `${v1} × ${v2} =`;
+          a = formatRes(v1 * v2);
+        } else if (type === 1) {
+          // 1.7 * 8
+          const v1 = (getRandomInt(10, 99) / 10);
+          const v2 = getRandomInt(2, 9);
+          q = `${v1} × ${v2} =`;
+          a = formatRes(v1 * v2);
+        } else {
+          // 0.55 * 50
+          const v1 = getRandomInt(1, 99) / 100;
+          const v2 = getRandomInt(10, 90);
+          q = `${v1} × ${v2} =`;
+          a = formatRes(v1 * v2);
+        }
+      } else if (operation === 'Exponents') {
         const v1 = getNum(1, 10);
         const exp = getRandomInt(2, 3);
         q = `${v1}${exp === 2 ? '²' : '³'} =`;

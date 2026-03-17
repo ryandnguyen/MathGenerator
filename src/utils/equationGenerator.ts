@@ -4,17 +4,19 @@ import { generateFractions, type FractionsOperation } from './generators/fractio
 import { generateMeasurement, type MeasurementOperation } from './generators/measurement';
 import { generateGeometry, type GeometryOperation } from './generators/geometry';
 import { generateLearning, type LearningOperation } from './generators/learning';
+import { generateWordProblems, type WordProblemType } from './generators/wordProblems';
 
 export type { Grade, Equation, EquationPart };
 
-export type Category = 'Learning' | 'Arithmetic' | 'Fractions' | 'Measurement' | 'Geometry' | 'Algebra';
+export type Category = 'Learning' | 'Arithmetic' | 'Fractions' | 'Measurement' | 'Geometry' | 'Algebra' | 'Word Problems';
 
 export type Operation = 
   | LearningOperation
   | ArithmeticOperation 
   | FractionsOperation 
   | MeasurementOperation 
-  | GeometryOperation;
+  | GeometryOperation
+  | WordProblemType;
 
 export const generateEquations = (
   grade: Grade, 
@@ -50,6 +52,9 @@ export const generateEquations = (
         break;
       case 'Geometry':
         rawResult = generateGeometry(operation as GeometryOperation);
+        break;
+      case 'Word Problems':
+        rawResult = generateWordProblems(operation as WordProblemType);
         break;
       default:
         rawResult = { question: '1 + 1 =', answer: 2 };

@@ -43,6 +43,11 @@ const CATEGORIES: { label: Category; operations: string[]; minGrade: Grade; maxG
     label: 'Geometry', 
     operations: ['Perimeter: Rect', 'Area: Rect', 'Perimeter: Square', 'Area: Square', 'Volume: Rect Prism', 'Shapes: Faces'],
     minGrade: '4th'
+  },
+  {
+    label: 'Word Problems',
+    operations: ['Fraction Addition', 'Fraction Subtraction', 'Fraction Multiplication', 'Decimal Multiplication', 'Perimeter'],
+    minGrade: '5th'
   }
 ];
 
