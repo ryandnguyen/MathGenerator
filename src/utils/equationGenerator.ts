@@ -24,8 +24,12 @@ export const generateEquations = (
   useDecimals: boolean = false
 ): Equation[] => {
   const equations: Equation[] = [];
+  const seen = new Set<string>();
+  const maxAttempts = count * 10;
+  let attempts = 0;
 
-  for (let i = 0; i < count; i++) {
+  while (equations.length < count && attempts < maxAttempts) {
+    attempts++;
     let rawResult: { 
       question: string | any[]; 
       answer: string | number 
@@ -51,6 +55,10 @@ export const generateEquations = (
         rawResult = { question: '1 + 1 =', answer: 2 };
     }
 
+    const serialized = JSON.stringify(rawResult.question);
+    if (seen.has(serialized)) continue;
+    seen.add(serialized);
+
     const questionParts: EquationPart[] = Array.isArray(rawResult.question)
       ? rawResult.question.map(p => {
           if (typeof p === 'string') return { type: 'text', value: p };
@@ -64,7 +72,7 @@ export const generateEquations = (
       : [{ type: 'text', value: rawResult.question as string }];
 
     equations.push({
-      id: `${category}-${operation}-${i}-${Date.now()}`,
+      id: `${category}-${operation}-${equations.length}-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
       question: questionParts,
       answer: rawResult.answer
     });
