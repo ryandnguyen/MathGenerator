@@ -5,14 +5,7 @@ import { generateMeasurement, type MeasurementOperation } from './generators/mea
 import { generateGeometry, type GeometryOperation } from './generators/geometry';
 import { generateLearning, type LearningOperation } from './generators/learning';
 
-export type Grade = Grade;
-export type EquationPart = EquationPart;
-export type Equation = {
-  id: string;
-  question: EquationPart[];
-  answer: string | number;
-  operation: string;
-};
+export type { Grade, Equation, EquationPart };
 
 export type Category = 'Learning' | 'Arithmetic' | 'Fractions' | 'Measurement' | 'Geometry' | 'Algebra';
 

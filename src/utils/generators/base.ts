@@ -9,6 +9,7 @@ export interface Equation {
   id: string;
   question: EquationPart[];
   answer: string | number;
+  operation: string;
 }
 
 export const getRandomInt = (min: number, max: number) => {
