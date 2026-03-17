@@ -26,7 +26,7 @@ const CATEGORIES: { label: Category; operations: string[]; minGrade: Grade; maxG
   },
   { 
     label: 'Arithmetic', 
-    operations: ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Exponents'],
+    operations: ['Addition', 'Subtraction', 'Multiplication', 'Division', 'Exponents', 'Expanded Form'],
     minGrade: 'K'
   },
   { 

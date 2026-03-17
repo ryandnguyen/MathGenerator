@@ -1,6 +1,6 @@
 import { type Grade, getRandomInt } from './base';
 
-export type ArithmeticOperation = 'Addition' | 'Subtraction' | 'Multiplication' | 'Division' | 'Exponents';
+export type ArithmeticOperation = 'Addition' | 'Subtraction' | 'Multiplication' | 'Division' | 'Exponents' | 'Expanded Form';
 
 export const generateArithmetic = (
   grade: Grade,
@@ -18,6 +18,41 @@ export const generateArithmetic = (
   };
 
   const formatRes = (val: number) => parseFloat(val.toFixed(2));
+
+  if (operation === 'Expanded Form') {
+    // Expanded Form (Hundreds, Tens, Ones)
+    const maxVal = (grade === 'Pre-K' || grade === 'K') ? 20 : (grade === '1st' ? 100 : 999);
+    const minVal = (grade === 'Pre-K' || grade === 'K') ? 1 : 10;
+    
+    const val = getRandomInt(minVal, maxVal);
+    const hundreds = Math.floor(val / 100);
+    const tens = Math.floor((val % 100) / 10);
+    const ones = val % 10;
+    
+    const rawParts: number[] = [];
+    if (hundreds > 0) rawParts.push(hundreds * 100);
+    if (tens > 0 || hundreds > 0) rawParts.push(tens * 10);
+    rawParts.push(ones);
+
+    const type = getRandomInt(0, 1);
+    
+    if (type === 0) {
+      // Hide the total value: ___ = 500 + 40 + 4
+      q = `___ = ${rawParts.join(' + ')}`;
+    } else {
+      // Hide parts of the expansion: 544 = 500 + ___ + 4
+      const numToHide = getRandomInt(1, rawParts.length);
+      const indicesToHide = new Set<number>();
+      while (indicesToHide.size < numToHide) {
+        indicesToHide.add(getRandomInt(0, rawParts.length - 1));
+      }
+      const qParts = rawParts.map((p, idx) => indicesToHide.has(idx) ? '___' : p);
+      q = `${val} = ${qParts.join(' + ')}`;
+    }
+    
+    a = `${val} = ${rawParts.join(' + ')}`;
+    return { question: q, answer: a };
+  }
 
   switch (grade) {
     case 'Pre-K': {

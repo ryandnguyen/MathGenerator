@@ -45,7 +45,7 @@ const EquationCard: React.FC<EquationCardProps> = ({ equation, index }) => {
           return <span key={i}>{part.value as string}</span>;
         })}
       </div>
-      <span className="answer-box"></span>
+      {equation.operation !== 'Expanded Form' && <span className="answer-box"></span>}
     </div>
   );
 };

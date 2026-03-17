@@ -5,7 +5,14 @@ import { generateMeasurement, type MeasurementOperation } from './generators/mea
 import { generateGeometry, type GeometryOperation } from './generators/geometry';
 import { generateLearning, type LearningOperation } from './generators/learning';
 
-export type { Grade, Equation, EquationPart };
+export type Grade = Grade;
+export type EquationPart = EquationPart;
+export type Equation = {
+  id: string;
+  question: EquationPart[];
+  answer: string | number;
+  operation: string;
+};
 
 export type Category = 'Learning' | 'Arithmetic' | 'Fractions' | 'Measurement' | 'Geometry' | 'Algebra';
 
@@ -74,7 +81,8 @@ export const generateEquations = (
     equations.push({
       id: `${category}-${operation}-${equations.length}-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
       question: questionParts,
-      answer: rawResult.answer
+      answer: rawResult.answer,
+      operation: operation
     });
   }
 
